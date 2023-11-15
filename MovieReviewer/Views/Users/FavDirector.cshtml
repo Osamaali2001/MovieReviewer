@@ -1,0 +1,10 @@
+﻿@model User
+
+<ul>Preferred Directors</ul>
+
+@foreach (Director director in Model.PreferredDirectors)
+{
+    <li><a asp-controller="Directors" asp-action="GetDetailsView" asp-route-id="@director.Id">@director.FirstName @director.LastName</a></li>
+}
+
+<a asp-controller="Users" asp-action="Profile">Profile</a>

@@ -1,0 +1,17 @@
+﻿<h1 class="alert alert-success text-center">Login</h1>
+
+<div class="row">
+    <form class="col-4" method="post" asp-controller="LogIn" asp-action="Login">
+        <div class="username">
+            <input type="email" name="Email" placeholder="Email">
+        </div>
+        <div class="password">
+            <input type="Password" name="Password" placeholder="Password">
+        </div>
+        <div class="submit">
+            <input type="submit" value="Login">
+        </div>
+        <a asp-controller="LogIn" asp-action="GetCreateAccountView">Create Account</a>
+    </form>
+</div>
+

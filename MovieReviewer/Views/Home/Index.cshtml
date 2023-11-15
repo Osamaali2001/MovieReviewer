@@ -1,0 +1,72 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+
+<h1 class="alert alert-success text-center">Home</h1>
+
+<form method="get" asp-controller="Home" asp-action="Index">
+    <div class="input-group">
+        <input type="text" name="search" value="@ViewBag.Search" />
+        <button type="submit" class="btn btn-secondary input-group-append"><i class="bi bi-search"></i></button>
+    </div>
+</form>
+
+@if (ViewBag.Movies != null || ViewBag.Actors != null || ViewBag.Directors != null)
+{
+    <ul class="list-group col-4">
+        @if (Accessor.HttpContext.Session.GetString("UserId") != null)
+        {
+            <li class="list-group-item text-dark"><a asp-controller="Movies" asp-action="GetIndexView">Movies</a></li>
+        }
+        else
+        {
+            <li class="list-group-item text-dark">Movies</li>
+        }
+        @foreach (Movie movie in ViewBag.Movies)
+        {
+            <a asp-controller="Movies" asp-action="GetDetailsView" asp-route-Id="@movie.MovieId">
+            <li class="list-group-item list-group-item-action">@movie.MovieName</li>
+            </a>
+        }
+    </ul>
+
+    <ul class="list-group col-4">
+        @if (Accessor.HttpContext.Session.GetString("UserId") != null)
+        {
+            <li class="list-group-item text-dark">
+                <a asp-controller="Actors" asp-action="GetIndexView">Actors</a>
+            </li>
+        }
+        else
+        {
+            <li class="list-group-item text-dark">Actors</li>
+        }
+        @foreach (Actor actor in ViewBag.Actors)
+        {
+            <a asp-controller="Actors" asp-action="GetDetailsView" asp-route-Id="@actor.Id">
+            <li class="list-group-item list-group-item-action">@actor.FirstName @actor.LastName</li>
+            </a>
+        }
+    </ul>
+    
+    <ul class="list-group col-4">
+        @if (Accessor.HttpContext.Session.GetString("UserId") != null)
+        {
+            <li class="list-group-item text-dark"><a asp-controller="Directors" asp-action="GetIndexView">Directors</a></li>
+        }
+        else
+        {
+            <li class="list-group-item text-dark">Directors</li>
+        }
+        @foreach (Director director in ViewBag.Directors)
+        {
+            <a asp-controller="Directors" asp-action="GetDetailsView" asp-route-Id="@director.Id">
+            <li class="list-group-item list-group-item-action">@director.FirstName @director.LastName</li>
+            </a>
+        }
+    </ul>
+
+}
+else
+{
+<h1 class="alert alert-danger text-center">There is nothing to display</h1>
+}

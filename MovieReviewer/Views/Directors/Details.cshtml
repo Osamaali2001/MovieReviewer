@@ -1,0 +1,47 @@
+﻿@model Director
+
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+
+<div class="row">
+    <dl class="col-6 row">
+        <dt class="col-4">Director Name</dt>
+        <dd class="col-8">@Model.FirstName @Model.LastName</dd>
+        <dt class="col-4">@Html.DisplayNameFor(d => d.Age)</dt>
+        <dd class="col-8">@Model.Age</dd>
+        @if (Accessor.HttpContext.Session.GetString("UserId") != null)
+        {
+            <form asp-controller="Users" asp-action="AddFavDirectorToDB" asp-route-Id="@Model.Id">
+                <button type="submit" class="bi bi-heart-fill"></button>
+            </form>
+        }
+    </dl>
+    <img src="@Model.ImagePath" class="col-4 card" style="object-fit:contain" />
+</div>
+
+<ul class="list-group col-4">
+    @if (Accessor.HttpContext.Session.GetString("UserId") != null)
+    {
+        <li class="list-group-item text-dark"><a asp-controller="Movies" asp-action="GetIndexView">Movies</a></li>
+    }
+    else
+    {
+        <li class="list-group-item text-dark">Movies</li>
+    }
+    @foreach (var movie in Model.MoviesDirected)
+    {
+        <a asp-controller="Movies" asp-action="GetDetailsView" asp-route-Id="@movie.MovieId">
+        <li class="list-group-item list-group-item-action">@movie.MovieName</li>
+        </a>
+    }
+</ul>
+
+@if (Accessor.HttpContext.Session.GetString("UserId") != null)
+{
+    <a asp-controller="Directors" asp-action="GetIndexView">Directors</a>
+}
+else
+{
+    <a asp-controller="Home" asp-action="Index">Home</a>
+}
+

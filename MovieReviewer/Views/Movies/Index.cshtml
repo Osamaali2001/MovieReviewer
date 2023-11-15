@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Movie>
+
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+
+<h1 class="alert alert-success text-center">Movies</h1>
+
+ @if (bool.Parse(Accessor.HttpContext.Session.GetString("Role"))) 
+ {
+    <a asp-controller="Movies" asp-action="GetCreateView" class="btn btn-success mb-1">Add Movie</a>
+ }
+
+<form method="get" asp-controller="Movies" asp-action="GetIndexView">
+    <div class="input-group">
+        <input type="text" name="search" value="@ViewBag.MoviesSearch" />
+        <button type="submit" class="btn btn-secondary input-group-append"><i class="bi bi-search"></i></button>
+    </div>
+</form>
+
+@if (Model.Count() > 0)
+{
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(d =>d.MovieName)</th>
+                <th>Director Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.MovieName</td>
+                    <td>@item.Director.FirstName @item.Director.LastName</td>
+                    <td>
+                        <a asp-controller="Movies" asp-action="GetDetailsView" asp-route-id="@item.MovieId" class="btn btn-outline-primary"><i class="bi bi-list-ul"></i></a>
+                        @if (bool.Parse(Accessor.HttpContext.Session.GetString("Role")))
+                        {
+                            <a asp-controller="Movies" asp-action="GetEditView" asp-route-id="@item.MovieId" class="btn btn-outline-warning"><i class="bi bi-pencil-square"></i></a>
+                            <a asp-controller="Movies" asp-action="GetDeleteView" asp-route-id="@item.MovieId" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h1 class="alert alert-danger text-center">There is no Movies to display</h1>
+}

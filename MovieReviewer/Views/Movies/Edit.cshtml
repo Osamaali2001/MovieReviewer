@@ -1,0 +1,64 @@
+﻿@model Movie
+
+<h1 class="alert alert-success text-center">Update Movie</h1>
+
+<div class="row">
+    <form class="col-4" method="post" asp-controller="Movies" asp-action="EditCurrent" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="MovieId" />
+        <input type="hidden" asp-for="ImagePath" />
+        <div>
+            <label asp-for="MovieName"></label>
+            <input type="text" asp-for="MovieName" class="form-control" />
+            <span asp-validation-for="MovieName" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="DirectorId"></label>
+            <<select asp-for="DirectorId" class="form-control">
+                <option selected disabled>Select....</option>
+                @foreach (Director item in ViewBag.AllDirectors)
+                {
+                    <option value="@item.Id">@item.FirstName @item.LastName</option>
+                }
+            </select>
+            <span asp-validation-for="DirectorId" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="ImagePath">
+                <input type="file" name="ImageFormFile" id="ImageFormFile" accept=".png,.jpg" class="form-control" onchange="SetImgSrc()" />
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Edit</button>
+    </form>
+    <img src="@Model.ImagePath" id="MovieImage" class="col-4 card" style="object-fit:contain" />
+</div>
+
+<ul class="list-group col-4">
+    <li class="list-group-item text-dark">
+        <a asp-controller="Actors" asp-action="GetIndexView">Actors</a>
+        <a asp-controller="Movies" asp-action="AddActorsToMovie" asp-route-id="@Model.MovieId"><i class="bi bi-plus-square-fill"></i></a>
+    </li>
+    @foreach (var actor in Model.ActtorsIn)
+    {
+        <div>
+            <a asp-controller="Actors" asp-action="GetDetailsView" asp-route-Id="@actor.Id">
+        <li class="list-group-item list-group-item-action">@actor.FirstName @actor.LastName</li>
+        </a>
+        <a asp-controller="Movies" asp-action="DeleteActorsToMovie" asp-route-MvId="@Model.MovieId" asp-route-AcId="@actor.Id">
+            <i class="bi bi-trash"></i>
+        </a>
+        </div>
+    }
+</ul>
+
+<a asp-controller="Movies" asp-action="GetIndexView">Discard Changes</a>
+
+@section Scripts{
+    <script>
+        function SetImgSrc() {
+            document.getElementById("MovieImage").src = window.URL.createObjectURL(document.getElementById("ImageFormFile").files[0])
+        }
+    </script>
+}
+
+

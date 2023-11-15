@@ -1,0 +1,27 @@
+﻿@model Movie
+
+<h1 class="alert alert-success text-center">Add actors to @Model.MovieName</h1>
+
+<div>
+    <form asp-controller="Movies" asp-action="SaveMovieActors">
+        <input type="hidden" asp-for="MovieId" />
+        <div>
+            <label>Add Actors</label>
+            <select name="Actorsid" multiple class="form-control">
+                @foreach(Actor actor in ViewBag.Actors)
+                {
+                    <option value="@actor.Id">@actor.FirstName @actor.LastName</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Add</button>
+    </form>
+</div>
+
+
+
+
+
+
+
+

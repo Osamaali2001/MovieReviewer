@@ -1,0 +1,41 @@
+﻿@model Actor
+
+<h1 class="alert alert-success text-center">Add Actor</h1>
+
+<div class="row">
+    <form class="col-4" method="post" asp-controller="Actors" asp-action="AddNew" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div>
+            <label asp-for="FirstName"></label>
+            <input type="text" asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="LastName"></label>
+            <input type="text" asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="Age"></label>
+            <input type="number" asp-for="Age" class="form-control" />
+            <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="ImagePath">
+                <input type="file" name="ImageFormFile" id="ImageFormFile" accept=".png,.jpg" class="form-control" onchange="SetImgSrc()" />
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Add</button>
+    </form>
+    <img src="" id="ActorImage" class="col-4 card" style="object-fit:contain" />
+</div>
+
+<a asp-controller="Actors" asp-action="GetIndexView">Discard</a>
+
+@section Scripts{
+    <script>
+        function SetImgSrc() {
+            document.getElementById("ActorImage").src = window.URL.createObjectURL(document.getElementById("ImageFormFile").files[0])
+        }
+    </script>
+}

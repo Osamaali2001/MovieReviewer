@@ -1,0 +1,17 @@
+﻿@model User
+
+
+<div class="row">
+    <dl class="col-6 row">
+        <dt class="col-4">User Name</dt>
+        <dd class="col-8">@Model.FirstName @Model.LastName</dd>
+        <dt class="col-4">@Html.DisplayNameFor(d => d.Email)</dt>
+        <dd class="col-8">@Model.Email</dd>
+    </dl>
+    <img src="@Model.ImagePath" class="col-4 card" style="object-fit:contain" />
+</div>
+
+<a asp-controller="Users" asp-action="GetEditView" asp-route-id="@Model.Id">Edit Profile</a>
+<a asp-controller="Users" asp-action="FavMovie">Movies Preferred</a>
+<a asp-controller="Users" asp-action="FavActor">Actors Preferred</a>
+<a asp-controller="Users" asp-action="FavDirector">Directors Preferred</a>

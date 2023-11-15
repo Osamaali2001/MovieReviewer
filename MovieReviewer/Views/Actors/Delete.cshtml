@@ -1,0 +1,28 @@
+﻿@model Actor
+
+<div class="row">
+    <dl class="col-6 row">
+        <dt class="col-2">Actor Name</dt>
+        <dd class="col-10">@Model.FirstName @Model.LastName</dd>
+        <dt class="col-2">@Html.DisplayNameFor(d => d.Age)</dt>
+        <dd class="col-10">@Model.Age</dd>
+    </dl>
+    <img src="@Model.ImagePath" class="col-4 card" style="object-fit:contain" />
+</div>
+
+<ul class="list-group col-4">
+    <li class="list-group-item text-dark"><a asp-controller="Movies" asp-action="GetIndexView">Movies</a></li>
+    @foreach (var movie in Model.MoviesIn)
+    {
+        <a asp-controller="Movies" asp-action="GetDetailsView" asp-route-Id="@movie.MovieId">
+        <li class="list-group-item list-group-item-action">@movie.MovieName</li>
+        </a>
+    }
+</ul>
+
+<form method="post" asp-controller="Actors" asp-action="DeleteCurrent">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>
+
+<a asp-controller="Actors" asp-action="GetIndexView">Actors</a>

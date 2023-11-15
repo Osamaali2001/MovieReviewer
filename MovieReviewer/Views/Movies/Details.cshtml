@@ -1,0 +1,57 @@
+﻿@model Movie
+
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+
+<div class="row">
+    <dl class="col-6 row">
+        <dt class="col-2">@Html.DisplayNameFor(d => d.MovieName)</dt>
+        <dd class="col-10">@Model.MovieName</dd>
+        <dt class="col-2">@Html.DisplayNameFor(d => d.DirectorId)</dt>
+        <dd class="col-10"><a asp-controller="Directors" asp-action="GetDetailsView" asp-route-id="@Model.Director.Id">@Model.Director.FirstName @Model.Director.LastName</a></dd>
+        @if (Accessor.HttpContext.Session.GetString("UserId") != null)
+        {
+            <form asp-controller="Users" asp-action="AddFavMovieToDB" asp-route-Id="@Model.MovieId">
+                <button type="submit" class="bi bi-heart-fill"></button>
+            </form>
+            <form asp-controller="Users" asp-action="Like" asp-route-Id="@Model.MovieId">
+                <button type="submit" class="bi bi-hand-thumbs-up-fill">@ViewBag.LikesCount</button>
+            </form>
+            <form asp-controller="Users" asp-action="DisLike" asp-route-Id="@Model.MovieId">
+                <button type="submit" class="bi bi-hand-thumbs-down-fill">@ViewBag.DisLikesCount</button>
+            </form>
+        }
+    </dl>
+    <img src="@Model.ImagePath" class="col-4 card" style="object-fit:contain" />
+</div>
+
+<ul class="list-group col-4">
+    @if (Accessor.HttpContext.Session.GetString("UserId") != null)
+    {
+        <li class="list-group-item text-dark">
+            <a asp-controller="Actors" asp-action="GetIndexView">Actors</a>
+        </li>
+    }
+    else
+    {
+        <li class="list-group-item text-dark">Actors</li>
+    }
+    @foreach (var actor in Model.ActtorsIn)
+    {
+        <div>
+            <a asp-controller="Actors" asp-action="GetDetailsView" asp-route-Id="@actor.Id">
+            <li class="list-group-item list-group-item-action">@actor.FirstName @actor.LastName</li>
+            </a>
+        </div>
+    }
+</ul>
+
+@if (Accessor.HttpContext.Session.GetString("UserId") != null)
+{
+    <a asp-asp-controller="Movies" asp-action="GetIndexView">Movies</a>
+}
+else
+{
+    <a asp-controller="Home" asp-action="Index">Home</a>
+}
+

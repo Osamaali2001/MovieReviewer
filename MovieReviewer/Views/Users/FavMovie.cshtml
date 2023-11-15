@@ -1,0 +1,11 @@
+﻿@model User
+
+<ul>Preferred Movies</ul>
+
+@foreach (Movie movie in Model.PreferredMovies)
+{
+    <li><a asp-controller="Movies" asp-action="GetDetailsView" asp-route-id="@movie.MovieId">@movie.MovieName</a></li>
+}
+
+<a asp-controller="Users" asp-action="Profile">Profile</a>
+

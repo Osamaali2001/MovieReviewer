@@ -1,0 +1,42 @@
+﻿@model Movie
+
+<h1 class="alert alert-success text-center">Add Movie</h1>
+
+<div class="row">
+    <form class="col-4" method="post" asp-controller="Movies" asp-action="AddNew" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div>
+            <label asp-for="MovieName"></label>
+            <input type="text" asp-for="MovieName" class="form-control" />
+            <span asp-validation-for="MovieName" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="DirectorId"></label>
+            <select asp-for="DirectorId" class="form-control">
+                <option selected disabled>Select....</option>
+                @foreach (Director item in ViewBag.AllDirectors)
+                {
+                    <option value="@item.Id">@item.FirstName @item.LastName</option>
+                }
+            </select>
+            <span asp-validation-for="DirectorId" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="ImagePath">
+                <input type="file" name="ImageFormFile" id="ImageFormFile" accept=".png,.jpg" class="form-control" onchange="SetImgSrc()" />
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Add</button>
+    </form>
+    <img src="" id="MovieImage" class="col-4 card" style="object-fit:contain" />
+</div>
+
+<a asp-controller="Movies" asp-action="GetIndexView">Discard</a>
+
+@section Scripts{
+    <script>
+        function SetImgSrc() {
+            document.getElementById("MovieImage").src = window.URL.createObjectURL(document.getElementById("ImageFormFile").files[0])
+        }
+    </script>
+}

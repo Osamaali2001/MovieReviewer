@@ -1,0 +1,52 @@
+﻿@model User
+
+<h1 class="alert alert-success text-center">Update Profile</h1>
+
+<div class="row">
+    <form class="col-4" method="post" asp-controller="Users" asp-action="EditProfile" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="ImagePath" />
+        <div>
+            <label asp-for="FirstName"></label>
+            <input type="text" asp-for="FirstName" value="@Model.FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="LastName"></label>
+            <input type="text" asp-for="LastName" value="@Model.LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="Email"></label>
+            <input type="email" asp-for="Email" value="@Model.Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="Password"></label>
+            <input type="password" asp-for="Password" value="@Model.Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="ImagePath">
+                <input type="file" name="ImageFormFile" id="ImageFormFile" accept=".png,.jpg" class="form-control" onchange="SetImgSrc()" />
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Edit</button>
+    </form>
+    <img src="@Model.ImagePath" id="ActorImage" class="col-4 card" style="object-fit:contain" />
+</div>
+
+<a asp-controller="Users" asp-action="Profile">Profile</a>
+
+@section Scripts{
+    <script>
+        function SetImgSrc() {
+            document.getElementById("ActorImage").src = window.URL.createObjectURL(document.getElementById("ImageFormFile").files[0])
+        }
+    </script>
+}
+
+
+
+

@@ -1,0 +1,12 @@
+﻿@model User
+
+<ul>Preferred Actors</ul>
+
+@foreach(Actor actor in Model.PreferredActors)
+{
+    <li><a asp-controller="Actors" asp-action="GetDetailsView" asp-route-id="@actor.Id">@actor.FirstName @actor.LastName</a></li>
+}
+
+<a asp-controller="Users" asp-action="Profile">Profile</a>
+
+
