@@ -403,3 +403,4 @@ F:\.net\MovieReviewer\MovieReviewer\obj\Debug\net7.0\refint\MovieReviewer.dll
 F:\.net\MovieReviewer\MovieReviewer\obj\Debug\net7.0\MovieReviewer.pdb
 F:\.net\MovieReviewer\MovieReviewer\obj\Debug\net7.0\MovieReviewer.genruntimeconfig.cache
 F:\.net\MovieReviewer\MovieReviewer\obj\Debug\net7.0\ref\MovieReviewer.dll
+F:\.net\MovieReviewer\MovieReviewer\obj\Debug\net7.0\MovieReviewer.sourcelink.json

@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "F:\\.net\\MovieReviewer\\MovieReviewer\\wwwroot\\images\\59481c08-42bd-4044-bbc5-e8995df4cedc.png",
+      "PackagePath": "staticwebassets\\images\\59481c08-42bd-4044-bbc5-e8995df4cedc.png"
+    },
+    {
       "Id": "F:\\.net\\MovieReviewer\\MovieReviewer\\wwwroot\\images\\6982e4bb-5346-4c7d-9c1b-4068fff32fca.png",
       "PackagePath": "staticwebassets\\images\\6982e4bb-5346-4c7d-9c1b-4068fff32fca.png"
     },
@@ -29,12 +33,20 @@
       "PackagePath": "staticwebassets\\images\\No_Image.png"
     },
     {
-      "Id": "F:\\.net\\MovieReviewer\\MovieReviewer\\wwwroot\\images\\b377406f-e271-4309-b4c2-4240c80bd2a9.png",
-      "PackagePath": "staticwebassets\\images\\b377406f-e271-4309-b4c2-4240c80bd2a9.png"
+      "Id": "F:\\.net\\MovieReviewer\\MovieReviewer\\wwwroot\\images\\a60416d6-6dd3-441e-af54-a44afa6de8bc.png",
+      "PackagePath": "staticwebassets\\images\\a60416d6-6dd3-441e-af54-a44afa6de8bc.png"
+    },
+    {
+      "Id": "F:\\.net\\MovieReviewer\\MovieReviewer\\wwwroot\\images\\a8dc49b7-98a2-4189-b907-3e6f157537bc.png",
+      "PackagePath": "staticwebassets\\images\\a8dc49b7-98a2-4189-b907-3e6f157537bc.png"
     },
     {
       "Id": "F:\\.net\\MovieReviewer\\MovieReviewer\\wwwroot\\images\\bc05cb60-4c06-4db4-9a59-f8477759b964.png",
       "PackagePath": "staticwebassets\\images\\bc05cb60-4c06-4db4-9a59-f8477759b964.png"
+    },
+    {
+      "Id": "F:\\.net\\MovieReviewer\\MovieReviewer\\wwwroot\\images\\cef7333b-0e5f-499e-9296-1f5fe25ad742.png",
+      "PackagePath": "staticwebassets\\images\\cef7333b-0e5f-499e-9296-1f5fe25ad742.png"
     },
     {
       "Id": "F:\\.net\\MovieReviewer\\MovieReviewer\\wwwroot\\js\\site.js",
