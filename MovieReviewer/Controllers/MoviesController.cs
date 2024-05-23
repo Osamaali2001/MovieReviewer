@@ -42,7 +42,7 @@ namespace MovieReviewer.Controllers
                 .FirstOrDefault(x => x.MovieId == id);
             ViewBag.LikesCount = movie.LikedByUsers.Count();
             ViewBag.DisLikesCount = movie.DislikedByUsers.Count();
-            return View("Details",movie);
+            return View("Details", movie);
         }
 
         [HttpGet]
@@ -148,7 +148,7 @@ namespace MovieReviewer.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddActorsToMovie(int id) 
+        public IActionResult AddActorsToMovie(int id)
         {
             Movie movie = _context.Movie.Include(m => m.ActtorsIn).FirstOrDefault(m => m.MovieId == id);
             ViewBag.Actors = _context.Actor.ToList().Except(movie.ActtorsIn);
@@ -159,22 +159,22 @@ namespace MovieReviewer.Controllers
         public IActionResult SaveMovieActors(Movie mv, int[] Actorsid)
         {
             Movie movie = _context.Movie.Include(m => m.ActtorsIn).FirstOrDefault(m => m.MovieId == mv.MovieId);
-            foreach (int id in Actorsid) 
+            foreach (int id in Actorsid)
             {
                 movie.ActtorsIn.Add(_context.Actor.FirstOrDefault(a => a.Id == id));
-            } 
+            }
             _context.SaveChanges();
-            return RedirectToAction("GetEditView", new {id = movie.MovieId});
+            return RedirectToAction("GetEditView", new { id = movie.MovieId });
         }
 
         [HttpGet]
         public IActionResult DeleteActorsToMovie(int MvId, int AcId)
         {
             Movie movie = _context.Movie.Include(m => m.ActtorsIn).FirstOrDefault(m => m.MovieId == MvId);
-            Actor actor = _context.Actor.FirstOrDefault(a =>a.Id == AcId);
+            Actor actor = _context.Actor.FirstOrDefault(a => a.Id == AcId);
             movie.ActtorsIn.Remove(actor);
             _context.SaveChanges();
-            return RedirectToAction("GetEditView", new { id = MvId});
+            return RedirectToAction("GetEditView", new { id = MvId });
         }
     }
 }
