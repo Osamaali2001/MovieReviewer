@@ -27,7 +27,7 @@ namespace MovieReviewer.Controllers
             User user = _context.User.FirstOrDefault(a => a.Email.Equals(Email) && a.Password.Equals(Password));
             if (user != null)
             {
-                HttpContext.Session.SetString("Role",user.IsAdmin.ToString());
+                HttpContext.Session.SetString("Role", user.IsAdmin.ToString());
                 HttpContext.Session.SetString("UserId", user.Id.ToString());
                 return RedirectToAction("Index", "Home");
             }
@@ -35,10 +35,10 @@ namespace MovieReviewer.Controllers
                 return View("Login");
         }
 
-        public IActionResult LogOut() 
+        public IActionResult LogOut()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
         [HttpGet]
         public ActionResult GetCreateAccountView()
