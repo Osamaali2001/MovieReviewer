@@ -20,7 +20,7 @@ namespace MovieReviewer.Controllers
         {
             List<Actor> actors;
             ViewBag.ActorsSearch = search;
-            if(search == null)
+            if (search == null)
             {
                 actors = _context.Actor.ToList();
             }
@@ -28,7 +28,7 @@ namespace MovieReviewer.Controllers
             {
                 actors = _context.Actor.Where(act => (act.FirstName.ToLower() + act.LastName.ToLower()).Contains(search.ToLower())).ToList();
             }
-            return View("Index",actors);
+            return View("Index", actors);
         }
 
         [HttpGet]
@@ -59,7 +59,7 @@ namespace MovieReviewer.Controllers
                     Guid imgGuid = Guid.NewGuid();
                     string imgName = imgGuid + imgExtension;
                     string imgPath = "\\images\\" + imgName;
-                    actor.ImagePath= imgPath;
+                    actor.ImagePath = imgPath;
                     string imgFullPath = _WebHostEnvironment.WebRootPath + imgPath;
                     FileStream imgFileStream = new FileStream(imgFullPath, FileMode.Create);
                     ImageFormFile.CopyTo(imgFileStream);
@@ -96,7 +96,7 @@ namespace MovieReviewer.Controllers
             {
                 if (ImageFormFile != null)
                 {
-                    if (actor.ImagePath!= "\\images\\No_Image.png")
+                    if (actor.ImagePath != "\\images\\No_Image.png")
                     {
                         string oldImgPath = _WebHostEnvironment.WebRootPath + actor.ImagePath;
                         System.IO.File.Delete(oldImgPath);
@@ -131,9 +131,9 @@ namespace MovieReviewer.Controllers
         [HttpPost]
         public IActionResult DeleteCurrent(int id)
         {
-            Actor actor= _context.Actor.Include(a=>a.MoviesIn).FirstOrDefault(d => d.Id == id);
+            Actor actor = _context.Actor.Include(a => a.MoviesIn).FirstOrDefault(d => d.Id == id);
             actor.MoviesIn.Clear();
-            if (actor.ImagePath!= "\\images\\No_Image.png")
+            if (actor.ImagePath != "\\images\\No_Image.png")
             {
                 string imgPath = _WebHostEnvironment.WebRootPath + actor.ImagePath;
                 System.IO.File.Delete(imgPath);
