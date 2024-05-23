@@ -23,10 +23,10 @@ namespace MovieReviewer.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetEditView(int id) 
+        public IActionResult GetEditView(int id)
         {
             User user = _context.User.FirstOrDefault(x => x.Id == int.Parse(HttpContext.Session.GetString("UserId")));
-            return View("Edit",user);
+            return View("Edit", user);
         }
 
         [HttpPost]
@@ -85,17 +85,33 @@ namespace MovieReviewer.Controllers
         [HttpPost]
         public IActionResult AddFavMovieToDB(int Id)
         {
-            User user = _context.User.Include(u => u.PreferredMovies).FirstOrDefault(u=>u.Id == int.Parse(HttpContext.Session.GetString("UserId")));
-            user.PreferredMovies.Add(_context.Movie.FirstOrDefault(m => m.MovieId == Id));
+            User user = _context.User.Include(u => u.PreferredMovies).FirstOrDefault(u => u.Id == int.Parse(HttpContext.Session.GetString("UserId")));
+            Movie movie = _context.Movie.FirstOrDefault(m => m.MovieId == Id);
+            if (!user.PreferredMovies.Contains(movie))
+            {
+                user.PreferredMovies.Add(movie);
+            }
+            else
+            {
+                user.PreferredMovies.Remove(movie);
+            }
             _context.SaveChanges();
-            return RedirectToAction("GetDetailsView","Movies", new { id = Id });
+            return RedirectToAction("GetDetailsView", "Movies", new { id = Id });
         }
 
         [HttpPost]
         public IActionResult AddFavDirectorToDB(int Id)
         {
             User user = _context.User.Include(u => u.PreferredDirectors).FirstOrDefault(u => u.Id == int.Parse(HttpContext.Session.GetString("UserId")));
-            user.PreferredDirectors.Add(_context.Director.FirstOrDefault(d => d.Id == Id));
+            Director director = _context.Director.FirstOrDefault(d => d.Id == Id);
+            if (!user.PreferredDirectors.Contains(director))
+            {
+                user.PreferredDirectors.Add(director);
+            }
+            else
+            {
+                user.PreferredDirectors.Remove(director);
+            }
             _context.SaveChanges();
             return RedirectToAction("GetDetailsView", "Directors", new { id = Id });
         }
@@ -104,7 +120,15 @@ namespace MovieReviewer.Controllers
         public IActionResult AddFavActorToDb(int Id)
         {
             User user = _context.User.Include(u => u.PreferredActors).FirstOrDefault(u => u.Id == int.Parse(HttpContext.Session.GetString("UserId")));
-            user.PreferredActors.Add(_context.Actor.FirstOrDefault(a => a.Id== Id));
+            Actor actor = _context.Actor.FirstOrDefault(a => a.Id == Id);
+            if (!user.PreferredActors.Contains(actor))
+            {
+                user.PreferredActors.Add(actor);
+            }
+            else
+            {
+                user.PreferredActors.Remove(actor);
+            }
             _context.SaveChanges();
             return RedirectToAction("GetDetailsView", "Actors", new { id = Id });
         }
