@@ -117,7 +117,7 @@ namespace MovieReviewer.Controllers
         [HttpGet]
         public IActionResult GetDeleteView(int id)
         {
-            Director director= _context.Director.Include(d => d.MoviesDirected).FirstOrDefault(dep => dep.Id == id);
+            Director director = _context.Director.Include(d => d.MoviesDirected).FirstOrDefault(dep => dep.Id == id);
             return View("Delete", director);
         }
 
